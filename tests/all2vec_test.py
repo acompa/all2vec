@@ -100,7 +100,14 @@ class TestAll2Vec:
         assert sim[0]['entity_id'] == 1
         sim = loaded.get_similar("type0", 1, "type1", 1, 1, False)
         assert sim[0]['entity_id'] == 0
-    
+
+    def test_entity_type_sizes(self):
+        t = self._get_entity_set()
+        sizes = t.get_entity_type_sizes()
+        assert len(sizes) == 2          # one for each type
+        assert sizes['type0'] == 2      # type0 has 2 objs
+        assert sizes['type1'] == 2      # type1 has 2 objs
+
     
     def _save_to_s3(self, client, b, k, files):
         client.create_bucket(Bucket=b)

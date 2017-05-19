@@ -112,6 +112,14 @@ class EntitySet(object):
         """Return size of set."""
         return len(self._annoy_objects)
 
+    def get_entity_type_sizes(self):
+        type_to_length = [
+            (entity_type,
+             len(self.get_entity_type(entity_idx)._ann_map.keys()))
+            for entity_idx, entity_type in self._entity_id_map.items()
+        ]
+        return dict(type_to_length)
+
     def create_entity_type(self, entity_type_id, entity_type,
                            ntrees, metric='angular'):
         """Create an entity type and populate its metadata."""
